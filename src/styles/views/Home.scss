@@ -1,0 +1,17 @@
+@import '../app.scss';
+
+.main-container {
+    @include flexbox;
+    @include flex-direction(row);
+    height: 100%;
+
+    .menu {
+        height: 100%;
+    }
+
+    .body {
+        @include flex(1);
+        @include flexbox;
+        @include flex-direction(column);
+    }
+}

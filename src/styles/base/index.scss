@@ -1,3 +1,5 @@
+@import '../app.scss';
+
 html,
 body {
 	height: 100%;
@@ -6,8 +8,8 @@ body {
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Ubuntu', 'Arial';
-	background-color: #eee;
+	font-family: 'Ubuntu';
+	background-color: $backgroundPrimary;
 }
 
 *::-webkit-scrollbar {
@@ -26,15 +28,4 @@ body {
 
 *{
 	user-select: none;
-}
-
-.header{
-	color: white;
-	background-color: #333;
-	text-transform: uppercase;
-	height: 150px;
-	display: flex;
-
-	justify-content: center;
-	align-items: center;
 }
