@@ -1,0 +1,40 @@
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu', 'Arial';
+	background-color: #eee;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-track {
+	background: #ddd;
+}
+*::-webkit-scrollbar-thumb {
+	background: #666;
+}
+
+#root {
+	height: 100%;
+}
+
+*{
+	user-select: none;
+}
+
+.header{
+	color: white;
+	background-color: #333;
+	text-transform: uppercase;
+	height: 150px;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+}
