@@ -1,9 +1,13 @@
 {
-	"name": "cra-electron",
-	"description": "CRA + Electron sitting in a tree",
-	"author": "Kitze",
-	"version": "0.2.7",
-	"private": true,
+	"name": "event-desktop",
+	"description": "Application to manage events",
+	"author": "TenKris",
+	"version": "0.1.0",
+	"private": false,
+	"repository": {
+		"type": "github",
+		"url": "https://github.com/TenKris/event-desktop"
+	},
 	"dependencies": {
 		"cross-env": "6.0.3",
 		"electron-is-dev": "1.1.0",
@@ -35,6 +39,13 @@
 		"react-build": "react-scripts build",
 		"react-test": "react-scripts test --env=jsdom",
 		"react-eject": "react-scripts eject"
+	},
+	"build": {
+		"publish": {
+			"provider": "github",
+			"owner": "TenKris",
+			"repository": "event-desktop"
+		}
 	},
 	"browserslist": {
 		"production": [
