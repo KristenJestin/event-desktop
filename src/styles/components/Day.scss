@@ -18,6 +18,12 @@
         background: rgba($primary, 0.2);
     }
 
+    &:active:not(
+        .selected
+    ) {
+        background: rgba($primary, 0.4);
+    }
+
     
     .number {
         margin: 8px;

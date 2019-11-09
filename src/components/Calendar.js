@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/components/Calendar.scss'
+import { getFirstMondayOfWeek, getNumberofWeeks } from '../utils/date'
 
 import moment from '../config/LocaleMoment'
 import DayNames from './DayNames'
@@ -15,34 +16,14 @@ class Calendar extends Component {
 		this.today = moment()
 	}
 
-	getFirstMondayOfWeek(date) {
-		return date.clone().startOf('week')
-	}
-	getNumberofWeeks(date) {
-		// var lastDate = date.clone().startOf('month'),
-		// 	weeks = 0
-		// while (lastDate.isSame(date, 'month')) {
-		// 	weeks++
-		// 	lastDate.add(1, 'week')
-		// }
-
-		// return weeks
-		return (
-			date
-				.clone()
-				.endOf('month')
-				.endOf('week')
-				.diff(date.clone().startOf('week'), 'week') + 1
-		)
-	}
-
 	renderDays() {
-		const selectedDate = this.props.date
+		const { selectedDate, events } = this.props
+
 		let weeks = [],
 			firstDate = selectedDate.clone().startOf('month'),
-			date = this.getFirstMondayOfWeek(firstDate)
+			date = getFirstMondayOfWeek(firstDate)
 
-		for (let week = 0; week < this.getNumberofWeeks(firstDate); week++) {
+		for (let week = 0; week < getNumberofWeeks(firstDate); week++) {
 			let days = []
 			for (let day = 0; day < 7; day++) {
 				days.push(
@@ -52,6 +33,9 @@ class Calendar extends Component {
 						inMonth={date.isSame(firstDate, 'month')}
 						isSelected={date.isSame(selectedDate, 'day')}
 						isToday={date.isSame(this.today, 'day')}
+						events={events.filter(event =>
+							moment(event.start).isSame(date, 'day')
+						)}
 						onClick={this.props.ChangeDate}
 					/>
 				)

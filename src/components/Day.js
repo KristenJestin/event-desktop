@@ -3,7 +3,15 @@ import '../styles/components/Day.scss'
 
 class Day extends Component {
 	render() {
-		const { date, inMonth, isSelected, isToday, onClick } = this.props
+		const {
+			date,
+			inMonth,
+			isSelected,
+			isToday,
+			events,
+			onClick
+		} = this.props
+
 		return (
 			<div
 				className={
@@ -14,6 +22,11 @@ class Day extends Component {
 				}
 				onClick={() => onClick(date)}>
 				<span className="number">{date.format('DD')}</span>
+				{events.map((event, index) => (
+					<p key={index} style={{ color: event.color }}>
+						{event.name}
+					</p>
+				))}
 			</div>
 		)
 	}

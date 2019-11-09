@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import logo from '../assets/logo.svg'
-import '../styles/views/AddEvent.css'
+import '../styles/containers/AddEvent.css'
 
 const { app } = window.require('electron').remote
 
