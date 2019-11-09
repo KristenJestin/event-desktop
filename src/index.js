@@ -4,6 +4,7 @@ import './styles/base/index.scss'
 
 import Home from './containers/Home'
 import AddEvent from './containers/AddEvent'
+import Loader from './components/Loader'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -13,8 +14,8 @@ import Store, { persistor } from './store/configure'
 
 ReactDOM.render(
 	<Provider store={Store}>
-		<PersistGate persistor={persistor}>
-			{/* <Router>
+		<PersistGate loading={<Loader />} persistor={persistor}>
+			<Router>
 				<Switch>
 					<Route path="/add-event">
 						<AddEvent />
@@ -23,9 +24,9 @@ ReactDOM.render(
 						<Home />
 					</Route>
 				</Switch>
-			</Router> */}
-			<Home />
+			</Router>
 		</PersistGate>
 	</Provider>,
+
 	document.getElementById('root')
 )

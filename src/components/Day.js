@@ -22,11 +22,13 @@ class Day extends Component {
 				}
 				onClick={() => onClick(date)}>
 				<span className="number">{date.format('DD')}</span>
-				{events.map((event, index) => (
-					<p key={index} style={{ color: event.color }}>
-						{event.name}
-					</p>
-				))}
+				<div className="events">
+					{events.map((event, index) => (
+						<p key={index} style={{ color: event.color }}>
+							{event.name}
+						</p>
+					))}
+				</div>
 			</div>
 		)
 	}

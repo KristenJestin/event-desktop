@@ -26,6 +26,20 @@ class Home extends Component {
 		this.clickTest2 = this.clickTest2.bind(this)
 	}
 
+	ChangeDateValue = (value, direction) => {
+		const { date } = this.state
+
+		if (direction > 0) {
+			date.add(direction, value)
+		} else {
+			date.subtract(direction * -1, value)
+		}
+
+		this.setState({
+			date
+		})
+	}
+
 	ChangeDate = date => {
 		this.setState({
 			date
@@ -56,7 +70,10 @@ class Home extends Component {
 					<Events />
 				</div>
 				<div className="body">
-					<ChooseDate date={this.state.date} />
+					<ChooseDate
+						ChangeDateValue={this.ChangeDateValue}
+						date={this.state.date}
+					/>
 
 					<div>
 						<button onClick={this.clickTest}>Test</button>

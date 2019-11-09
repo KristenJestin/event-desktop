@@ -2,9 +2,9 @@
 
 .Day {
     @include flex(1);
-
-	border-left: $calendarBorder;
-
+    
+    border-left: $calendarBorder;
+    
 	color: $textPrimary;
 	font-weight: 400;
 	font-size: 16px;
