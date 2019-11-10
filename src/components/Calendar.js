@@ -8,8 +8,6 @@ import DayNames from './DayNames'
 import Week from './Week'
 import Day from './Day'
 
-// const { app } = window.require('electron').remote
-
 class Calendar extends Component {
 	constructor(props) {
 		super(props)
