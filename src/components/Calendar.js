@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import '../styles/components/Calendar.scss'
+import '../assets/styles/components/Calendar.scss'
+
 import { getFirstMondayOfWeek, getNumberofWeeks } from '../utils/date'
 
 import moment from '../config/LocaleMoment'

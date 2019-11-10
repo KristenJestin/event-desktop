@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/components/ChooseDate.scss'
+import '../assets/styles/components/ChooseDate.scss'
 
 class ChooseDate extends Component {
 	ChangeDateValue() {}
@@ -13,18 +13,14 @@ class ChooseDate extends Component {
 					onWheel={e =>
 						ChangeDateValue('month', e.deltaY > 0 ? 1 : -1)
 					}>
-					<span
-						onClick={() => ChangeDateValue('month', -1)}
-						className="previous">
+					<span onClick={() => ChangeDateValue('month', -1)}>
 						{date
 							.clone()
 							.subtract(1, 'month')
 							.format('MMMM')}
 					</span>
 					<span className="current">{date.format('MMMM')}</span>
-					<span
-						onClick={() => ChangeDateValue('month', 1)}
-						className="next">
+					<span onClick={() => ChangeDateValue('month', 1)}>
 						{date
 							.clone()
 							.add(1, 'month')
@@ -36,18 +32,14 @@ class ChooseDate extends Component {
 					onWheel={e =>
 						ChangeDateValue('year', e.deltaY > 0 ? 1 : -1)
 					}>
-					<span
-						onClick={() => ChangeDateValue('year', -1)}
-						className="previous">
+					<span onClick={() => ChangeDateValue('year', -1)}>
 						{date
 							.clone()
 							.subtract(1, 'year')
 							.format('YYYY')}
 					</span>
 					<span className="current">{date.format('YYYY')}</span>
-					<span
-						onClick={() => ChangeDateValue('year', 1)}
-						className="next">
+					<span onClick={() => ChangeDateValue('year', 1)}>
 						{date
 							.clone()
 							.add(1, 'year')

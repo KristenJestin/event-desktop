@@ -1,4 +1,6 @@
-@import '../app.scss';
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
 
 .Day {
     @include flex(1);

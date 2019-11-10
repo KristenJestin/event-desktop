@@ -1,0 +1,47 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.Events {
+    @include flexbox();
+    @include flex-direction(column);
+
+    background-color: $backgroundSecondary;
+    max-width: 500px;
+    width: 500px;
+    text-align: center;
+    height: 100%;
+
+    .title {
+        color: $textSecondary;
+        padding-top: 100px;
+        font-weight: 800;
+        font-size: 35px;
+        text-transform: uppercase;
+        letter-spacing: 16px;
+        display: block;
+    }
+    
+    .subtitle {
+        color: $textSecondary;
+        font-weight: 200;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+    }
+
+
+    .body {
+        @include flex(1);
+        padding: 0 25px;
+        margin: 40px 0 20px;
+        overflow: auto;
+
+        .no-event {
+            color: $textMuted;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}

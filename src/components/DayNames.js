@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/components/DayNames.scss'
+import '../assets/styles/components/DayNames.scss'
 
 import moment from '../config/LocaleMoment'
 

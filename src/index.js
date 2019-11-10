@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles/base/index.scss'
+import './assets/styles/base/index.scss'
 
 import Home from './containers/Home'
 import AddEvent from './containers/AddEvent'

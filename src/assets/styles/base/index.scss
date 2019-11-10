@@ -1,0 +1,50 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700&display=swap");
+
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu';
+	background-color: $backgroundPrimary;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-track {
+	background: #ddd;
+}
+*::-webkit-scrollbar-thumb {
+	background: #666;
+}
+
+#root {
+	height: 100%;
+}
+
+*{
+	user-select: none;
+}
+
+
+
+.bg-success {
+    background-color: $success-color !important;
+}
+.bg-warning {
+    background-color: $warning-color !important;
+}
+.bg-danger {
+    background-color: $danger-color !important;
+}
+.bg-info {
+    background-color: $info-color !important;
+}

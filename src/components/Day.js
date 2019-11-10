@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../styles/components/Day.scss'
+import '../assets/styles/components/Day.scss'
 
 class Day extends Component {
 	render() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import '../styles/containers/Home.scss'
+import '../assets/styles/containers/Home.scss'
+
 import {
 	getFirstMondayOfWeekAndMonth,
 	getLastSundayOfWeekAndMonth
@@ -50,9 +51,7 @@ class Home extends Component {
 		let event = {
 			name: 'Test Event',
 			description: null,
-			start: moment()
-				.add(3, 'd')
-				.format('YYYY-MM-DD'),
+			start: moment().format('YYYY-MM-DD'),
 			color: '#F77900'
 		}
 		const action = { type: 'ADD_EVENT', value: event }
@@ -64,10 +63,28 @@ class Home extends Component {
 	}
 
 	render() {
+		const monthEvents = this.props.events.filter(event => {
+				let date = moment(event.start)
+				return (
+					date.isSameOrAfter(
+						getFirstMondayOfWeekAndMonth(this.state.date)
+					) &&
+					date.isSameOrBefore(
+						getLastSundayOfWeekAndMonth(this.state.date)
+					)
+				)
+			}),
+			selectedDateEvents = monthEvents.filter(event =>
+				moment(event.start).isSame(this.state.date, 'day')
+			)
+
 		return (
 			<div className="main-container">
 				<div className="menu">
-					<Events />
+					<Events
+						date={this.state.date}
+						events={selectedDateEvents}
+					/>
 				</div>
 				<div className="body">
 					<ChooseDate
@@ -81,19 +98,7 @@ class Home extends Component {
 					</div>
 					<Calendar
 						selectedDate={this.state.date}
-						events={this.props.events.filter(event => {
-							let date = moment(event.start)
-							return (
-								date.isSameOrAfter(
-									getFirstMondayOfWeekAndMonth(
-										this.state.date
-									)
-								) &&
-								date.isSameOrBefore(
-									getLastSundayOfWeekAndMonth(this.state.date)
-								)
-							)
-						})}
+						events={monthEvents}
 						ChangeDate={this.ChangeDate}
 					/>
 				</div>
