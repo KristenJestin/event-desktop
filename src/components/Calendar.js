@@ -35,9 +35,13 @@ class Calendar extends Component {
 						inMonth={date.isSame(firstDate, 'month')}
 						isSelected={date.isSame(selectedDate, 'day')}
 						isToday={date.isSame(this.today, 'day')}
-						events={events.filter(event =>
-							moment(event.start).isSame(date, 'day')
-						)}
+						events={
+							events != null
+								? events.filter(event =>
+										moment(event.start).isSame(date, 'day')
+								  )
+								: []
+						}
 						onClick={this.props.ChangeDate}
 					/>
 				)

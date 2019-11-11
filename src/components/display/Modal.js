@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../../assets/styles/components/Modal.scss'
+import '../../assets/styles/components/display/Modal.scss'
 
 class Modal extends Component {
 	constructor(props) {
@@ -16,12 +16,15 @@ class Modal extends Component {
 		})
 	}
 
-	hide = event => {
+	hide = () => {
+		this.setState({
+			show: false
+		})
+	}
+	hideOnClickOutside = event => {
 		event.preventDefault()
 		if (event.target === event.currentTarget) {
-			this.setState({
-				show: false
-			})
+			this.hide()
 		}
 	}
 
@@ -29,7 +32,7 @@ class Modal extends Component {
 		return (
 			<div
 				className={'Modal' + (this.state.show ? ' show' : ' hide')}
-				onClick={event => this.hide(event)}>
+				onClick={event => this.hideOnClickOutside(event)}>
 				<div className="content">
 					<div className="header">Modification de l'événement</div>
 					<div className="body">

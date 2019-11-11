@@ -61,31 +61,6 @@ $input-border: 4px;
 		letter-spacing: 0.05em;
 		margin-top: 2px;
 	}
-
-	button {
-		outline: none;
-		background: $primary;
-		width: 100%;
-		border: 0;
-		border-radius: 4px;
-		padding: 12px 20px;
-		color: $textSecondary;
-		font-family: inherit;
-		font-size: inherit;
-		font-weight: 500;
-		line-height: inherit;
-		text-transform: uppercase;
-		cursor: pointer;
-		transition: $transition;
-
-		&:hover {
-			background-color: lighten($primaryDark, 6%);
-		}
-
-		&:active {
-			background-color: darken($primaryDark, 3%);
-		}
-	}
 }
 
 $checkbox-transform: translate(-50%, calc(-50% - 1px));
