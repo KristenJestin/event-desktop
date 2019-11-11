@@ -6,22 +6,41 @@
         
         window.onload = function () {
             const { ipcRenderer } = require('electron');
+            import moment from 'moment'
+            import localization from 'moment/locale/fr'
+            moment.updateLocale('fr', localization)
 
-            ipcRenderer.on('event-send', (event, obj) => {
-                alert(obj.message)
+
+
+            let events = {}
+
+            // When initialisation start or when event added / updated / deleted
+            ipcRenderer.on('events-send', (event, obj) => {
+                if(obj === null)
+                    obj = {}
+
+                events = obj
+                console.log(events)
             })
 
-            let i = 0
+
             let backgroundTask = setInterval(() => {
-                i++
-                if (i == 3) {
-                    ipcRenderer.send('event-test', {
-                        message: "oui"
-                    });
-                }
-            }, 1000 * 2);
+
+                let beforeEvents = events.filter(event => moment(event.start).isBeforeOrSame(moment(), 'day') && !event.notified)
+                beforeEvents.forEach(event => {
+                    if(moment(event.start).isAfterOrSame(moment().subtract(1, 'day'), 'day')){
+                        /* TODO: Notifications
+                        ** Resend to react they to notify user
+                        ** OR
+                        ** Launch notification direclty here (onclick go on event section)
+                        */
+                    }
+                });
+
+            }, 1000 * 10);
 
         };
+
 
     </script>
 </head>

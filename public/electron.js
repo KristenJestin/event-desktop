@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 const path = require('path')
 const isDev = require('electron-is-dev')
@@ -30,20 +30,19 @@ function createMainWindow() {
 
 function createBackgroundWindow() {
 	const win = new BrowserWindow({
-		show: false,
+		show: true,
 		webPreferences: { nodeIntegration: true }
 	})
 	win.loadURL(`file://${path.join(__dirname, 'background.html')}`)
 
+	win.webContents.openDevTools()
 	return win
 }
-
 
 function onClosed() {
 	mainWindow = null
 	backgroundWindow = null
 }
-
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
@@ -53,14 +52,15 @@ app.on('window-all-closed', () => {
 
 app.on('activate-with-no-open-windows', () => {
 	if (!mainWindow) {
-		mainWindow = createMainWindow();
+		mainWindow = createMainWindow()
 	}
-});
+})
 
 app.on('ready', () => {
-	mainWindow = createMainWindow();
-	backgroundWindow = createBackgroundWindow();
-});
+	mainWindow = createMainWindow()
+	backgroundWindow = createBackgroundWindow()
+})
 
-ipcMain.on('event-test', (event, payload) => mainWindow.webContents.send('event-test', payload));
-ipcMain.on('event-send', (event, payload) => backgroundWindow.webContents.send('event-send', payload));
+ipcMain.on('events-send', (event, payload) =>
+	backgroundWindow.webContents.send('events-send', payload)
+)
