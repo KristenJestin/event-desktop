@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../assets/styles/containers/Home.scss'
@@ -11,8 +12,10 @@ import moment from '../config/LocaleMoment'
 import Calendar from '../components/Calendar'
 import Events from '../components/Events'
 import ChooseDate from '../components/ChooseDate'
+import { stringify } from 'querystring'
 
-// const { app } = window.require('electron').remote
+const { app } = window.require('electron').remote
+const { ipcRenderer } = window.require('electron')
 
 class Home extends Component {
 	constructor(props) {
@@ -25,6 +28,13 @@ class Home extends Component {
 
 		this.clickTest = this.clickTest.bind(this)
 		this.clickTest2 = this.clickTest2.bind(this)
+
+		ipcRenderer.on('event-test', (event, obj) => {
+			alert(obj.message)
+			ipcRenderer.send('event-send', {
+				message: 'bravo'
+			});
+		});
 	}
 
 	ChangeDateValue = (value, direction) => {

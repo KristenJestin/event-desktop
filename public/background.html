@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <script>
+
+        
+        window.onload = function () {
+            const { ipcRenderer } = require('electron');
+
+            ipcRenderer.on('event-send', (event, obj) => {
+                alert(obj.message)
+            })
+
+            let i = 0
+            let backgroundTask = setInterval(() => {
+                i++
+                if (i == 3) {
+                    ipcRenderer.send('event-test', {
+                        message: "oui"
+                    });
+                }
+            }, 1000 * 2);
+
+        };
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
