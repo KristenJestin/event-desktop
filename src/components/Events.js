@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import '../assets/styles/components/Events.scss'
+import '../assets/styles/base/input.scss'
 
 import moment from '../config/LocaleMoment'
 import Event from './Event'
+import Modal from './Modal'
 
 class Events extends Component {
 	render() {
@@ -21,6 +23,7 @@ class Events extends Component {
 					) : (
 						<span className="no-event">Aucun événement</span>
 					)}
+					<Modal show />
 				</div>
 			</div>
 		)
