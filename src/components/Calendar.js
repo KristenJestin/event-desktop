@@ -22,11 +22,12 @@ class Calendar extends Component {
 
 		let weeks = [],
 			firstDate = selectedDate.clone().startOf('month'),
-			date = getFirstMondayOfWeek(firstDate)
+			monthDate = getFirstMondayOfWeek(firstDate)
 
 		for (let week = 0; week < getNumberofWeeks(firstDate); week++) {
 			let days = []
 			for (let day = 0; day < 7; day++) {
+				let date = monthDate
 				days.push(
 					<Day
 						key={day}
@@ -41,7 +42,7 @@ class Calendar extends Component {
 					/>
 				)
 
-				date = date.clone().add(1, 'day')
+				monthDate = date.clone().add(1, 'day')
 			}
 			weeks.push(<Week key={week} days={days} />)
 		}

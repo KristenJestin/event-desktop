@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../assets/styles/components/Loader.scss'
+import '../../assets/styles/components/Loader.scss'
 
 class Loader extends Component {
 	renderBars() {

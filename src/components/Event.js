@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import '../assets/styles/components/Event.scss'
 
 import moment from '../config/LocaleMoment'
-import Icon from './Icon'
-import Modal from './Modal'
+import Icon from './display/Icon'
 
 class Event extends Component {
 	render() {

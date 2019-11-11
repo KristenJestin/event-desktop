@@ -4,7 +4,7 @@ import './assets/styles/base/index.scss'
 
 import Home from './containers/Home'
 import AddEvent from './containers/AddEvent'
-import Loader from './components/Loader'
+import Loader from './components/display/Loader'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
