@@ -17,7 +17,7 @@ class Calendar extends Component {
 		this.today = moment()
 	}
 
-	renderDays() {
+	renderWeeks() {
 		const { selectedDate, events } = this.props
 
 		let weeks = [],
@@ -58,7 +58,7 @@ class Calendar extends Component {
 		return (
 			<div className="Calendar">
 				<DayNames />
-				<div className="weeks">{this.renderDays()}</div>
+				<div className="weeks">{this.renderWeeks()}</div>
 			</div>
 		)
 	}

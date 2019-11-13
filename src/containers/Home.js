@@ -19,7 +19,6 @@ class Home extends Component {
 		super(props)
 
 		this.state = {
-			// date: moment()
 			date: moment()
 		}
 
