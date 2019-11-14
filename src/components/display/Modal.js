@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../../assets/styles/components/display/Modal.scss'
+import Icon from './Icon'
 
 class Modal extends Component {
 	constructor(props) {
@@ -8,6 +9,10 @@ class Modal extends Component {
 		this.state = {
 			show: this.props.show || false
 		}
+
+		this.show = this.show.bind(this)
+		this.hide = this.hide.bind(this)
+		this.hideOnClickOutside = this.hideOnClickOutside.bind(this)
 	}
 
 	show() {
@@ -16,14 +21,14 @@ class Modal extends Component {
 		})
 	}
 
-	hide = () => {
+	hide() {
 		this.setState({
 			show: false
 		})
 	}
-	hideOnClickOutside = event => {
-		event.preventDefault()
+	hideOnClickOutside(event) {
 		if (event.target === event.currentTarget) {
+			event.preventDefault()
 			this.hide()
 		}
 	}
@@ -32,27 +37,12 @@ class Modal extends Component {
 		return (
 			<div
 				className={'Modal' + (this.state.show ? ' show' : ' hide')}
-				onClick={event => this.hideOnClickOutside(event)}>
+				onClick={this.hideOnClickOutside}>
 				<div className="content">
-					<div className="header">Modification de l'événement</div>
-					<div className="body">
-						Le Lorem Ipsum est simplement du faux texte employé dans
-						la composition et la mise en page avant impression. Le
-						Lorem Ipsum est le faux texte standard de l'imprimerie
-						depuis les années 1500, quand un imprimeur anonyme
-						assembla ensemble des morceaux de texte pour réaliser un
-						livre spécimen de polices de texte. Il n'a pas fait que
-						survivre cinq siècles, mais s'est aussi adapté à la
-						bureautique informatique, sans que son contenu n'en soit
-						modifié. Il a été popularisé dans les années 1960 grâce
-						à la vente de feuilles Letraset contenant des passages
-						du Lorem Ipsum, et, plus récemment, par son inclusion
-						dans des applications de mise en page de texte, comme
-						Aldus PageMaker.
+					<div className="close">
+						<Icon name="times" onClick={this.hide} />
 					</div>
-					<div className="footer">
-						<button>Valider</button>
-					</div>
+					{this.props.children}
 				</div>
 			</div>
 		)

@@ -4,6 +4,7 @@ import '../assets/styles/components/ChooseDate.scss'
 class ChooseDate extends Component {
 	ChangeDateValue() {}
 
+	// TODO: Add animation when changing month or year with state
 	render() {
 		const { date, ChangeDateValue } = this.props
 		return (

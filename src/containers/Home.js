@@ -24,26 +24,38 @@ class Home extends Component {
 
 		this.clickTest = this.clickTest.bind(this)
 		this.clickTest2 = this.clickTest2.bind(this)
+
+		// Update month and selected date events
+		this.updateEvents(this.state.date)
+	}
+
+	updateEvents = date => {
+		// Get all events from this month
+		this.monthEvents = this.props.events.filter(event => {
+			let start = moment(event.start)
+			return (
+				start.isSameOrAfter(getFirstMondayOfWeekAndMonth(date)) &&
+				start.isSameOrBefore(getLastSundayOfWeekAndMonth(date))
+			)
+		})
+		// Get all events from selected Date
+		this.selectedDateEvents = this.monthEvents.filter(event =>
+			moment(event.start).isSame(date, 'day')
+		)
 	}
 
 	ChangeDateValue = (value, direction) => {
 		const { date } = this.state
-
-		if (direction > 0) {
-			date.add(direction, value)
-		} else {
-			date.subtract(direction * -1, value)
-		}
-
-		this.setState({
-			date
-		})
+		this.ChangeDate(date.clone().add(direction, value))
 	}
 
 	ChangeDate = date => {
-		this.setState({
-			date
-		})
+		this.setState(
+			{
+				date
+			},
+			this.updateEvents(date)
+		)
 	}
 
 	clickTest() {
@@ -62,27 +74,12 @@ class Home extends Component {
 	}
 
 	render() {
-		const monthEvents = this.props.events.filter(event => {
-				let date = moment(event.start)
-				return (
-					date.isSameOrAfter(
-						getFirstMondayOfWeekAndMonth(this.state.date)
-					) &&
-					date.isSameOrBefore(
-						getLastSundayOfWeekAndMonth(this.state.date)
-					)
-				)
-			}),
-			selectedDateEvents = monthEvents.filter(event =>
-				moment(event.start).isSame(this.state.date, 'day')
-			)
-
 		return (
 			<div className="main-container">
 				<div className="menu">
 					<Events
 						date={this.state.date}
-						events={selectedDateEvents}
+						events={this.selectedDateEvents}
 					/>
 				</div>
 				<div className="body">
@@ -97,7 +94,7 @@ class Home extends Component {
 					</div>
 					<Calendar
 						selectedDate={this.state.date}
-						events={monthEvents}
+						events={this.monthEvents}
 						ChangeDate={this.ChangeDate}
 					/>
 				</div>

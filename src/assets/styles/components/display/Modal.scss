@@ -48,17 +48,45 @@
 		border-radius: 10px;
 		opacity: 0;
         transform: translateY(-150px);
-        overflow: auto;
+		overflow: auto;
+		
+		
+
+		.close {
+			position: relative;
+
+			.fas {
+				position: absolute;
+				right: -15px;
+				bottom: 0;
+				color: $textMuted;
+				transition: $transition;
+				cursor: pointer;
+
+				&:hover {
+					color: darken($textMuted, 20%);
+				}
+				
+				&:active {
+					color: darken($textMuted, 60%);
+				}
+			}
+		}
 
 		.header {
 			color: $textPrimary;
 			font-size: 25px;
 			font-weight: 800;
+			text-transform: uppercase;
+			padding: 0 20px;
 		}
 		.body {
-			margin-bottom: 25px;
+			padding: 0;
+			margin: 0;
+			margin-top: 25px;
 		}
 		.footer {
+			margin-top: 25px;
 		}
 	}
 }
