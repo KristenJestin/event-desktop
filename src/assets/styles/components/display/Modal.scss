@@ -14,43 +14,42 @@
 	background-color: rgba(0, 0, 0, 0.6);
 	transition: $transition;
 	height: 100%;
-    overflow: auto;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
+	overflow: auto;
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
 	@include flexbox;
 	@include justify-content(center);
 	@include align-content(center);
 	@include align-items(center);
 
 	&.show {
-        // animation: showBackground 0.25s normal forwards ease-in-out;
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
+		// animation: showBackground 0.25s normal forwards ease-in-out;
+		visibility: visible;
+		opacity: 1;
+		pointer-events: auto;
 
-        .content {            
-		    animation: showContent 0.35s normal forwards ease-in-out;
-        }
-    }
-    
-    &.hide {
-        .content {            
-		    animation: hideContent 0.25s normal forwards ease-in-out;
-        }
+		.content {
+			animation: showContent 0.35s normal forwards ease-in-out;
+		}
+	}
+
+	&.hide {
+		.content {
+			animation: hideContent 0.25s normal forwards ease-in-out;
+		}
 	}
 
 	.content {
-        margin: 20px;
-        max-width: 500px;
+		margin: 20px;
+		width: 100%;
+		max-width: 425px;
 		padding: 30px;
 		background-color: $backgroundPrimary;
 		border-radius: 10px;
 		opacity: 0;
-        transform: translateY(-150px);
+		transform: translateY(-150px);
 		overflow: auto;
-		
-		
 
 		.close {
 			position: relative;
@@ -66,7 +65,7 @@
 				&:hover {
 					color: darken($textMuted, 20%);
 				}
-				
+
 				&:active {
 					color: darken($textMuted, 60%);
 				}
@@ -98,7 +97,7 @@
 }
 
 @keyframes showContent {
-    from {
+	from {
 		opacity: 0;
 		transform: translateY(-150px);
 	}
@@ -109,7 +108,7 @@
 }
 
 @keyframes hideContent {
-    from {
+	from {
 		opacity: 1;
 		transform: translateY(0);
 	}
@@ -117,4 +116,3 @@
 		transform: translateY(-150px);
 	}
 }
-

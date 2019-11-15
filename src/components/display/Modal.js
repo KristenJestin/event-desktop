@@ -13,6 +13,8 @@ class Modal extends Component {
 		this.show = this.show.bind(this)
 		this.hide = this.hide.bind(this)
 		this.hideOnClickOutside = this.hideOnClickOutside.bind(this)
+
+		this.mousedown = false
 	}
 
 	show() {
@@ -37,7 +39,8 @@ class Modal extends Component {
 		return (
 			<div
 				className={'Modal' + (this.state.show ? ' show' : ' hide')}
-				onClick={this.hideOnClickOutside}>
+				onMouseDown={this.hideOnClickOutside}>
+				{/* onClick= */}
 				<div className="content">
 					<div className="close">
 						<Icon name="times" onClick={this.hide} />

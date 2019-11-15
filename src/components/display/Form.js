@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import validate from '../../utils/validator'
 import '../../assets/styles/base/inputs.scss'
+import Icon from './Icon'
 
 class Form extends Component {
 	constructor(props) {
@@ -17,6 +18,7 @@ class Form extends Component {
 	handlerChange = event => {
 		const name = event.target.name
 		const value = event.target.value
+
 		const updatedControls = {
 			...this.state.controls
 		}
@@ -24,6 +26,27 @@ class Form extends Component {
 			...this.state.controls[name]
 		}
 		control.value = value
+		updatedControls[name] = control
+		this.setState({ controls: updatedControls })
+	}
+
+	handleBlur = event => {
+		const name = event.target.name
+		const value = event.target.value
+
+		const updatedControls = {
+			...this.state.controls
+		}
+		let control = {
+			...this.state.controls[name]
+		}
+
+		if (control.validationRules != null) {
+			let validation = validate(value, control.validationRules)
+
+			control.validation = validation
+		}
+
 		updatedControls[name] = control
 		this.setState({ controls: updatedControls })
 	}
@@ -78,13 +101,15 @@ class Form extends Component {
 			let control = this.state.controls[controlName]
 			controls.push(
 				<Input
-					key={control}
+					key={controlName}
 					options={{
 						name: controlName,
 						label: control.label,
 						value: control.value,
 						validation: control.validation,
-						handlerChange: this.handlerChange
+						rules: control.validationRules,
+						handlerChange: this.handlerChange,
+						handleBlur: this.handleBlur
 					}}
 				/>
 			)
@@ -122,12 +147,29 @@ controls={{
 }
 
 const Input = props => {
-	let options = props.options || {}
+	const { options } = props || {}
+	let error =
+		options.validation != null && !options.validation.valid
+			? options.validation.errors[0].message
+			: null
 	return (
 		<div className="form-group">
-			{options.label ? (
-				<label htmlFor={options.name || ''}>{options.label}</label>
-			) : null}
+			{!options.label || (
+				<div>
+					<label htmlFor={options.name || ''}>
+						{options.label}
+						{options.rules.isRequired || (
+							<span className="notrequired"> - Optionnel</span>
+						)}
+					</label>
+					{!error || (
+						<Icon
+							name="exclamation-circle"
+							classNames="error-icon"
+						/>
+					)}
+				</div>
+			)}
 			<input
 				type={options.type || 'text'}
 				id={options.name || ''}
@@ -135,12 +177,9 @@ const Input = props => {
 				placeholder={options.placeholder || ''}
 				value={options.value || ''}
 				onChange={event => options.handlerChange(event) || null}
+				onBlur={event => options.handleBlur(event) || null}
 			/>
-			<span className="error">
-				{options.validation != null && !options.validation.valid
-					? options.validation.errors[0].message
-					: ''}
-			</span>
+			<span className="error">{error}</span>
 		</div>
 	)
 }

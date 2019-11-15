@@ -8,7 +8,7 @@ import Form from './display/Form'
 class Events extends Component {
 	renderModal() {
 		return (
-			<Modal ref={ref => (this.newEventModal = ref)}>
+			<Modal ref={ref => (this.eventModal = ref)}>
 				<div className="header">Ajout d'un événement</div>
 				<div className="body">
 					<Form
@@ -17,12 +17,24 @@ class Events extends Component {
 							name: {
 								label: 'Nom',
 								validationRules: {
-									require: true,
-									isEmail: true
+									isRequired: true
 								}
+							},
+							description: {
+								label: 'Description',
+								validationRules: {}
 							}
 						}}>
-						<button type="submit">Valider</button>
+						<div className="form-buttons">
+							<button
+								type="button"
+								className="only-text"
+								style={{ paddingLeft: 30, paddingRight: 30 }}
+								onClick={() => this.eventModal.hide()}>
+								Annuler
+							</button>
+							<button type="submit">Ajouter l'événement</button>
+						</div>
 					</Form>
 				</div>
 			</Modal>
@@ -47,7 +59,7 @@ class Events extends Component {
 					)}
 				</div>
 				<div className="footer">
-					<button onClick={() => this.newEventModal.show()}>
+					<button onClick={() => this.eventModal.show()}>
 						Ajouter un Événement
 					</button>
 				</div>

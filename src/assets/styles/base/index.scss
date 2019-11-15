@@ -37,16 +37,16 @@ body {
 
 
 .bg-success {
-    background-color: $success-color !important;
+    background-color: $success-color;
 }
 .bg-warning {
-    background-color: $warning-color !important;
+    background-color: $warning-color;
 }
 .bg-danger {
-    background-color: $danger-color !important;
+    background-color: $danger-color;
 }
 .bg-info {
-    background-color: $info-color !important;
+    background-color: $info-color;
 }
 
 
@@ -73,5 +73,56 @@ button {
 
 	&:active {
 		background-color: darken($primaryDark, 3%);
+	}
+
+
+	&.bg-success {
+		&:hover {
+			background-color: lighten($success-color, 6%);
+		}
+		&:active {
+			background-color: darken($success-color, 3%);
+		}
+	}	
+
+	&.bg-warning {
+		&:hover {
+			background-color: lighten($warning-color, 6%);
+		}
+		&:active {
+			background-color: darken($warning-color, 3%);
+		}
+	}
+
+	&.bg-danger {
+		&:hover {
+			background-color: lighten($danger-color, 6%);
+		}
+		&:active {
+			background-color: darken($danger-color, 3%);
+		}
+	}
+
+	&.bg-info {
+		&:hover {
+			background-color: lighten($info-color, 6%);
+		}
+		&:active {
+			background-color: darken($info-color, 3%);
+		}
+	}
+
+	
+	&.only-text {
+		background-color: transparent;
+		color: lighten($textPrimary, 35%);
+		width: auto;
+
+		&:hover {
+			color: lighten($textPrimary, 20%);
+		}
+		&:active {
+			color: $textPrimary;
+		}
 	}
 }

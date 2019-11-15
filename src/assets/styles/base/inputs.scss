@@ -19,18 +19,23 @@ $input-border: 4px;
 		display: block;
 		margin: 0 0 5px;
 		color: $textMuted;
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: 800;
 		line-height: 1;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
+		display: inline-block;
 
-		.required {
-			color: $danger-color;
-			margin-left: 2px;
-			font-size: 9px;
-			vertical-align: top;
+		.notrequired {
+			color: $textMuted;
+			font-size: 11px;
 		}
+	}
+
+	label + .error-icon {
+		color: $danger-color;
+		display: inline-block;
+		margin-left: 2px;
 	}
 
 	input {
@@ -55,7 +60,7 @@ $input-border: 4px;
 	}
 
 	.error {
-		font-size: 12px;
+		font-size: 13px;
 		color: $danger-color;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -113,4 +118,10 @@ $checkbox-transform: translate(-50%, calc(-50% - 1px));
 	input:checked ~ .checkmark {
 		transform: $checkbox-transform scale(1);
 	}
+}
+
+.form-buttons {
+	@include flexbox;
+	@include flex-direction(row);
+	@include justify-content(stretch);
 }

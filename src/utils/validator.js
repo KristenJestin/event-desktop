@@ -6,7 +6,7 @@ const validate = (value, rules) => {
 
 	for (let rule in rules) {
 		switch (rule) {
-			case 'require':
+			case 'isRequired':
 				if (requireValidator(value, rules[rule])) break
 				obj.errors.push({
 					rule: rule,
