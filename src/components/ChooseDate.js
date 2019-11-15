@@ -10,20 +10,17 @@ class ChooseDate extends Component {
 		this.state = {
 			date: this.props.date || moment()
 		}
+		this.transition = true
+		this.canChange = true
 		this.currentDate = this.state.date
 
 		this.getClassFromDate = this.getClassFromDate.bind(this)
 	}
 
-	componentDidUpdate(oldProps) {
-		const newProps = this.props
-		if (!oldProps.date.isSame(newProps.date, 'month')) {
-			this.setState({ date: newProps.date })
-			this.currentDate = newProps.date
-		}
-	}
+	ChangeDateValue = (value, direction) => {
+		if (!this.canChange) return
 
-	ChangeDateValue = (direction, value) => {
+		this.canChange = false
 		const { date } = this.state
 		this.setState(
 			{
@@ -31,14 +28,19 @@ class ChooseDate extends Component {
 			},
 			() =>
 				setTimeout(() => {
+					this.transition = false
 					this.currentDate = this.state.date
 					this.props.ChangeDateValue(value, direction)
-				}, 1000)
+					this.transition = true
+
+					this.canChange = true
+				}, 200)
 		)
 	}
 
 	getClassFromDate(date) {
-		if (date.isSame(this.state.date, 'month')) return 'current'
+		let value = ''
+		if (date.isSame(this.state.date, 'month')) value = 'current'
 		else if (
 			!date.isBetween(
 				this.state.date.clone().add(-2, 'month'),
@@ -46,8 +48,10 @@ class ChooseDate extends Component {
 				'month'
 			)
 		) {
-			return 'hide'
+			value = 'hide'
 		}
+
+		return value + (this.transition ? '' : ' noTransition')
 	}
 
 	getDates() {
@@ -66,17 +70,17 @@ class ChooseDate extends Component {
 				<div
 					className="months multiple"
 					onWheel={e =>
-						ChangeDateValue('month', e.deltaY > 0 ? 1 : -1)
+						this.ChangeDateValue('month', e.deltaY > 0 ? 1 : -1)
 					}>
 					{/* Months */}
 					<span
 						className={this.getClassFromDate(dates[0])}
-						onClick={() => this.ChangeDateValue(-1, 'month')}>
+						onClick={() => this.ChangeDateValue('month', -1)}>
 						{dates[0].format('MMMM')}
 					</span>
 					<span
 						className={this.getClassFromDate(dates[1])}
-						onClick={() => this.ChangeDateValue(-1, 'month')}>
+						onClick={() => this.ChangeDateValue('month', -1)}>
 						{dates[1].format('MMMM')}
 					</span>
 					<span className={this.getClassFromDate(dates[2])}>
@@ -84,12 +88,12 @@ class ChooseDate extends Component {
 					</span>
 					<span
 						className={this.getClassFromDate(dates[3])}
-						onClick={() => this.ChangeDateValue(1, 'month')}>
+						onClick={() => this.ChangeDateValue('month', 1)}>
 						{dates[3].format('MMMM')}
 					</span>
 					<span
 						className={this.getClassFromDate(dates[4])}
-						onClick={() => this.ChangeDateValue(1, 'month')}>
+						onClick={() => this.ChangeDateValue('month', 1)}>
 						{dates[4].format('MMMM')}
 					</span>
 					{/* End Months */}

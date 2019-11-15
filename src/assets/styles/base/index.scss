@@ -48,3 +48,8 @@ body {
 .bg-info {
     background-color: $info-color !important;
 }
+
+
+.noTransition {
+	transition: none !important;
+}
