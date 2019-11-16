@@ -11,6 +11,7 @@ import moment from '../config/LocaleMoment'
 import Calendar from '../components/Calendar'
 import Events from '../components/Events'
 import ChooseDate from '../components/ChooseDate'
+import { getRandom } from '../utils/math'
 
 // const { app } = window.require('electron').remote
 
@@ -24,9 +25,6 @@ class Home extends Component {
 
 		this.clickTest = this.clickTest.bind(this)
 		this.clickTest2 = this.clickTest2.bind(this)
-
-		// Update month and selected date events
-		this.updateEvents(this.state.date)
 	}
 
 	updateEvents = date => {
@@ -53,18 +51,21 @@ class Home extends Component {
 		this.setState(
 			{
 				date
-			},
-			this.updateEvents(date)
+			}
+			// this.updateEvents(date)
 		)
 	}
 
-	clickTest() {
+	clickTest = () => {
 		let event = {
 			name: 'Test Event',
 			description: null,
 			start: moment().format('YYYY-MM-DD'),
 			color: '#F77900'
 		}
+		event.start = moment(event.start)
+			.set({ h: getRandom(0, 24), m: getRandom(0, 59) })
+			.format('YYYY-MM-DD HH:mm:ss')
 		const action = { type: 'ADD_EVENT', value: event }
 		this.props.dispatch(action)
 	}
@@ -74,6 +75,9 @@ class Home extends Component {
 	}
 
 	render() {
+		// Update month and selected date events
+		this.updateEvents(this.state.date)
+
 		return (
 			<div className="main-container">
 				<div className="menu">

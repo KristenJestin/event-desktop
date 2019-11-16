@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import '../assets/styles/components/Events.scss'
 
+import moment from '../config/LocaleMoment'
+
 import Event from './Event'
 import Modal from './display/Modal'
 import Form from './display/Form'
@@ -51,9 +53,15 @@ class Events extends Component {
 				</span>
 				<div className="body">
 					{events.length > 0 ? (
-						events.map((event, index) => (
-							<Event key={index} event={event} />
-						))
+						events
+							.sort(
+								(a, b) =>
+									moment(a.start).unix() -
+									moment(b.start).unix()
+							)
+							.map((event, index) => (
+								<Event key={index} event={event} />
+							))
 					) : (
 						<span className="no-event">Aucun événement</span>
 					)}
