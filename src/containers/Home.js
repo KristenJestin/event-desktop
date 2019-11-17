@@ -22,9 +22,6 @@ class Home extends Component {
 		this.state = {
 			date: moment()
 		}
-
-		this.clickTest = this.clickTest.bind(this)
-		this.clickTest2 = this.clickTest2.bind(this)
 	}
 
 	updateEvents = date => {
@@ -56,24 +53,6 @@ class Home extends Component {
 		)
 	}
 
-	clickTest = () => {
-		let event = {
-			name: 'Test Event',
-			description: null,
-			start: moment().format('YYYY-MM-DD'),
-			color: '#F77900'
-		}
-		event.start = moment(event.start)
-			.set({ h: getRandom(0, 24), m: getRandom(0, 59) })
-			.format('YYYY-MM-DD HH:mm:ss')
-		const action = { type: 'ADD_EVENT', value: event }
-		this.props.dispatch(action)
-	}
-	clickTest2() {
-		const action = { type: 'CLEAR_EVENTS', value: null }
-		this.props.dispatch(action)
-	}
-
 	render() {
 		// Update month and selected date events
 		this.updateEvents(this.state.date)
@@ -91,11 +70,6 @@ class Home extends Component {
 						ChangeDateValue={this.ChangeDateValue}
 						date={this.state.date}
 					/>
-
-					<div>
-						<button onClick={this.clickTest}>Test</button>
-						<button onClick={this.clickTest2}>Clear</button>
-					</div>
 					<Calendar
 						selectedDate={this.state.date}
 						events={this.monthEvents}

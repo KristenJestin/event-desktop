@@ -59,6 +59,26 @@ $input-border: 4px;
 		}
 	}
 
+	.colors {
+		@include flexbox;
+		@include flex-direction(row);
+		@include justify-content(space-around);
+		width: 100%;
+
+		.color {
+			$colorSize: 30px;
+			height: $colorSize;
+			width: $colorSize;
+			border-radius: $colorSize;
+			border: 3px solid transparent;
+			cursor: pointer;
+
+			&.selected {
+				border-color: $textPrimary;
+			}
+		}
+	}
+
 	.error {
 		font-size: 13px;
 		color: $danger-color;

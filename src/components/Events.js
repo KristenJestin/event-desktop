@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import '../assets/styles/components/Events.scss'
+import colors from '../config/Colors'
 
 import moment from '../config/LocaleMoment'
 
@@ -8,6 +10,21 @@ import Modal from './display/Modal'
 import Form from './display/Form'
 
 class Events extends Component {
+	addEvent = event => {
+		// 2019-11-17 19:00
+
+		let newEvent = {
+			name: event.name.value,
+			description: event.description.value || null,
+			start: event.start.value,
+			color: event.color.value
+		}
+
+		const action = { type: 'ADD_EVENT', value: newEvent }
+		this.props.dispatch(action)
+		this.eventModal.hide()
+	}
+
 	renderModal() {
 		return (
 			<Modal ref={ref => (this.eventModal = ref)}>
@@ -25,9 +42,30 @@ class Events extends Component {
 							description: {
 								label: 'Description',
 								validationRules: {}
+							},
+							start: {
+								label: 'Date',
+								validationRules: {
+									isRequired: true
+								}
+							},
+							color: {
+								label: 'Couleurs',
+								type: 'colors',
+								values: [
+									colors.primary,
+									'#F77900',
+									'#55BE30',
+									'#28A0D3',
+									'#8333E3'
+								],
+								validationRules: {
+									isRequired: true
+								}
 							}
-						}}>
-						<div className="form-buttons">
+						}}
+						submit={this.addEvent}>
+						<div className="form-buttons" style={{ marginTop: 35 }}>
 							<button
 								type="button"
 								className="only-text"
@@ -77,4 +115,10 @@ class Events extends Component {
 	}
 }
 
-export default Events
+const mapStateToProps = state => {
+	return {
+		allEvents: state.addEvent.events
+	}
+}
+
+export default connect(mapStateToProps)(Events)

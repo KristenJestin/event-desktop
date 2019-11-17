@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import validate from '../../utils/validator'
 import '../../assets/styles/base/inputs.scss'
 import Icon from './Icon'
+import DateTimePicker from './DateTimePicker'
 
 class Form extends Component {
 	constructor(props) {
@@ -11,7 +12,7 @@ class Form extends Component {
 			controls: this.props.controls
 		}
 
-		this.handleClearForm = this.handleClearForm.bind(this)
+		this.clear = this.clear.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
@@ -55,64 +56,71 @@ class Form extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('submited')
-		// let userData = this.state.newUser;
-
-		// if (!event.target.checkValidity()) {
-
-		// fetch('http://example.com',{
-		// 	method: "POST",
-		// 	body: JSON.stringify(userData),
-		// 	headers: {
-		// 	  'Accept': 'application/json',
-		// 	  'Content-Type': 'application/json'
-		// 	},
-		//   }).then(response => {
-		// 	response.json().then(data =>{
-		// 	  console.log("Successful" + data);
-		// 	})
-		// })
-
-		// Form submission logic
-		// if (control.validationRules != null) {
-		// 	let validation = validate(value, control.validationRules)
-		// 	control.validation = validation
-		// }
-
-		// const data = new FormData(form);
-
-		// for (let name of data.keys()) {
-		//   const input = form.elements[name];
-		//   const parserName = input.dataset.parse;
-
-		//   if (parserName) {
-		// 	const parser = inputParsers[parserName];
-		// 	const parsedValue = parser(data.get(name));
-		// 	data.set(name, parsedValue);
-		//   }
-		// }
+		this.props.submit(this.state.controls)
 	}
-	handleClearForm() {
-		// Logic for resetting the form
+	clear() {
+		// TODO: add logic for resetting the form
 	}
 
 	renderControls() {
 		let controls = []
 		for (let controlName in this.state.controls) {
 			let control = this.state.controls[controlName]
-			controls.push(
-				<Input
-					key={controlName}
-					options={{
-						name: controlName,
-						label: control.label,
-						value: control.value,
-						validation: control.validation,
-						rules: control.validationRules,
-						handlerChange: this.handlerChange,
-						handleBlur: this.handleBlur
-					}}
-				/>
-			)
+
+			let input = null
+			switch (control.type) {
+				case 'date':
+					input = (
+						<DateInput
+							key={controlName}
+							options={{
+								name: controlName,
+								label: control.label,
+								value: control.value,
+								validation: control.validation,
+								rules: control.validationRules,
+								handlerChange: this.handlerChange,
+								handleBlur: this.handleBlur
+							}}
+						/>
+					)
+					break
+
+				case 'colors':
+					input = (
+						<ColorsInput
+							key={controlName}
+							options={{
+								name: controlName,
+								label: control.label,
+								value: control.value || control.values[0],
+								colors: control.values,
+								validation: control.validation,
+								rules: control.validationRules,
+								handlerChange: this.handlerChange,
+								handleBlur: this.handleBlur
+							}}
+						/>
+					)
+					break
+
+				default:
+					input = (
+						<Input
+							key={controlName}
+							options={{
+								name: controlName,
+								label: control.label,
+								value: control.value,
+								validation: control.validation,
+								rules: control.validationRules,
+								handlerChange: this.handlerChange,
+								handleBlur: this.handleBlur
+							}}
+						/>
+					)
+			}
+			controls.push(input)
 		}
 		return controls
 	}
@@ -130,21 +138,6 @@ class Form extends Component {
 }
 
 export default Form
-
-{
-	/* <Form
-controls={{
-	name: {
-		label: 'Nom',
-		validationRules: {
-			require: true,
-			isEmail: true
-		}
-	}
-}}>
-<div>test</div>
-</Form> */
-}
 
 const Input = props => {
 	const { options } = props || {}
@@ -179,6 +172,108 @@ const Input = props => {
 				onChange={event => options.handlerChange(event) || null}
 				onBlur={event => options.handleBlur(event) || null}
 			/>
+			<span className="error">{error}</span>
+		</div>
+	)
+}
+
+const DateInput = props => {
+	const { options } = props || {}
+	let error =
+		options.validation != null && !options.validation.valid
+			? options.validation.errors[0].message
+			: null
+
+	let datepicker, input
+	return (
+		<div className="form-group">
+			{!options.label || (
+				<div>
+					<label htmlFor={options.name || ''}>
+						{options.label}
+						{options.rules.isRequired || (
+							<span className="notrequired"> - Optionnel</span>
+						)}
+					</label>
+					{!error || (
+						<Icon
+							name="exclamation-circle"
+							classNames="error-icon"
+						/>
+					)}
+				</div>
+			)}
+			<input
+				ref={ref => (input = ref)}
+				type={options.type || 'text'}
+				id={options.name || ''}
+				name={options.name || ''}
+				placeholder={options.placeholder || ''}
+				value={options.value || ''}
+				onClick={() => datepicker.show()}
+				onChange={event => options.handlerChange(event) || null}
+				onBlur={event => options.handleBlur(event) || null}
+			/>
+			<span className="error">{error}</span>
+			<DateTimePicker
+				ref={ref => (datepicker = ref)}
+				ChooseDate={date =>
+					(input.value = date.format('YYYY-MM-DD HH:mm'))
+				}
+			/>
+		</div>
+	)
+}
+
+const ColorsInput = props => {
+	const { options } = props || {}
+	let error =
+		options.validation != null && !options.validation.valid
+			? options.validation.errors[0].message
+			: null
+
+	let input
+	return (
+		<div className="form-group">
+			{!options.label || (
+				<div>
+					<label htmlFor={options.name || ''}>
+						{options.label}
+						{options.rules.isRequired || (
+							<span className="notrequired"> - Optionnel</span>
+						)}
+					</label>
+					{!error || (
+						<Icon
+							name="exclamation-circle"
+							classNames="error-icon"
+						/>
+					)}
+				</div>
+			)}
+			<input
+				ref={ref => (input = ref)}
+				type="hidden"
+				name={options.name || ''}
+				value={options.value || ''}
+				onChange={event => alert('') || null}
+			/>
+			<div className="colors">
+				{options.colors.map((color, index) => (
+					<div
+						key={index}
+						className={
+							'color' +
+							(options.value === color ? ' selected' : '')
+						}
+						style={{ backgroundColor: color }}
+						onClick={() =>
+							options.handlerChange({
+								target: { value: color, name: options.name }
+							})
+						}></div>
+				))}
+			</div>
 			<span className="error">{error}</span>
 		</div>
 	)

@@ -26,7 +26,7 @@
 		padding: 12px 12px;
 		text-align: left;
 		overflow: hidden;
-        transition: $transition;
+		transition: $transition, border-color 0s;
         z-index: 1;
 
 		.text {
