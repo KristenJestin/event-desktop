@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from '../assets/logo.svg'
 import '../assets/styles/containers/AddEvent.css'
 
-const { app } = window.require('electron').remote
+// const { app } = window.require('electron').remote
 
 class AddEvent extends Component {
 	render() {
@@ -14,7 +14,7 @@ class AddEvent extends Component {
 				</div>
 				<p className="AddEvent-intro">
 					<b> Release 0.2.7 </b>
-					Version: {app.getVersion()}
+					{/* Version: {app.getVersion()} */}
 				</p>
 			</div>
 		)

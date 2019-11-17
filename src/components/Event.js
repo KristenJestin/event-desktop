@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import '../assets/styles/components/Event.scss'
+import colors from '../config/Colors'
 
 import moment from '../config/LocaleMoment'
-import Icon from './Icon'
-import Modal from './Modal'
+import Icon from './display/Icon'
 
 class Event extends Component {
 	render() {
@@ -13,7 +13,9 @@ class Event extends Component {
 				<span className="times">
 					{moment(event.start).format('HH:mm')}
 				</span>
-				<div className="box">
+				<div
+					className="box"
+					style={{ borderLeftColor: event.color || colors.primary }}>
 					<span className="text">{event.name}</span>
 				</div>
 

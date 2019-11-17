@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import '../../node_modules/@fortawesome/fontawesome-free/css/all.css'
+import '../../../node_modules/@fortawesome/fontawesome-free/css/all.css'
 
 class Icon extends Component {
 	render() {
-		const { brand, name, classNames, style } = this.props
+		const { brand, name, classNames, style, ...props } = this.props
 		return (
 			<i
 				className={
@@ -13,7 +13,8 @@ class Icon extends Component {
 					' ' +
 					(classNames || '')
 				}
-				style={{ ...style }}></i>
+				style={{ ...style }}
+				{...props}></i>
 		)
 	}
 }

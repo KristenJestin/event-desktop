@@ -11,6 +11,7 @@ import moment from '../config/LocaleMoment'
 import Calendar from '../components/Calendar'
 import Events from '../components/Events'
 import ChooseDate from '../components/ChooseDate'
+import { getRandom } from '../utils/math'
 
 // const { app } = window.require('electron').remote
 
@@ -19,71 +20,49 @@ class Home extends Component {
 		super(props)
 
 		this.state = {
-			// date: moment()
 			date: moment()
 		}
+	}
 
-		this.clickTest = this.clickTest.bind(this)
-		this.clickTest2 = this.clickTest2.bind(this)
+	updateEvents = date => {
+		// Get all events from this month
+		this.monthEvents = this.props.events.filter(event => {
+			let start = moment(event.start)
+			return (
+				start.isSameOrAfter(getFirstMondayOfWeekAndMonth(date)) &&
+				start.isSameOrBefore(getLastSundayOfWeekAndMonth(date))
+			)
+		})
+		// Get all events from selected Date
+		this.selectedDateEvents = this.monthEvents.filter(event =>
+			moment(event.start).isSame(date, 'day')
+		)
 	}
 
 	ChangeDateValue = (value, direction) => {
 		const { date } = this.state
-
-		if (direction > 0) {
-			date.add(direction, value)
-		} else {
-			date.subtract(direction * -1, value)
-		}
-
-		this.setState({
-			date
-		})
+		this.ChangeDate(date.clone().add(direction, value))
 	}
 
 	ChangeDate = date => {
-		this.setState({
-			date
-		})
-	}
-
-	clickTest() {
-		let event = {
-			name: 'Test Event',
-			description: null,
-			start: moment().format('YYYY-MM-DD'),
-			color: '#F77900'
-		}
-		const action = { type: 'ADD_EVENT', value: event }
-		this.props.dispatch(action)
-	}
-	clickTest2() {
-		const action = { type: 'CLEAR_EVENTS', value: null }
-		this.props.dispatch(action)
+		this.setState(
+			{
+				date
+			}
+			// this.updateEvents(date)
+		)
 	}
 
 	render() {
-		const monthEvents = this.props.events.filter(event => {
-				let date = moment(event.start)
-				return (
-					date.isSameOrAfter(
-						getFirstMondayOfWeekAndMonth(this.state.date)
-					) &&
-					date.isSameOrBefore(
-						getLastSundayOfWeekAndMonth(this.state.date)
-					)
-				)
-			}),
-			selectedDateEvents = monthEvents.filter(event =>
-				moment(event.start).isSame(this.state.date, 'day')
-			)
+		// Update month and selected date events
+		this.updateEvents(this.state.date)
 
 		return (
 			<div className="main-container">
 				<div className="menu">
 					<Events
 						date={this.state.date}
-						events={selectedDateEvents}
+						events={this.selectedDateEvents}
 					/>
 				</div>
 				<div className="body">
@@ -91,14 +70,9 @@ class Home extends Component {
 						ChangeDateValue={this.ChangeDateValue}
 						date={this.state.date}
 					/>
-
-					<div>
-						<button onClick={this.clickTest}>Test</button>
-						<button onClick={this.clickTest2}>Clear</button>
-					</div>
 					<Calendar
 						selectedDate={this.state.date}
-						events={monthEvents}
+						events={this.monthEvents}
 						ChangeDate={this.ChangeDate}
 					/>
 				</div>

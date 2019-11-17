@@ -1,0 +1,118 @@
+@import '../../abstracts/variables';
+@import '../../abstracts/mixins';
+@import '../../abstracts/functions';
+
+.Modal {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	height: 100vh;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.6);
+	transition: $transition;
+	height: 100%;
+	overflow: auto;
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+	@include flexbox;
+	@include justify-content(center);
+	@include align-content(center);
+	@include align-items(center);
+
+	&.show {
+		// animation: showBackground 0.25s normal forwards ease-in-out;
+		visibility: visible;
+		opacity: 1;
+		pointer-events: auto;
+
+		.content {
+			animation: showContent 0.35s normal forwards ease-in-out;
+		}
+	}
+
+	&.hide {
+		.content {
+			animation: hideContent 0.25s normal forwards ease-in-out;
+		}
+	}
+
+	.content {
+		margin: 20px;
+		width: 100%;
+		max-width: 425px;
+		padding: 30px;
+		background-color: $backgroundPrimary;
+		border-radius: 10px;
+		opacity: 0;
+		transform: translateY(-150px);
+		overflow: auto;
+
+		.close {
+			position: relative;
+
+			.fas {
+				position: absolute;
+				right: -15px;
+				bottom: 0;
+				color: $textMuted;
+				transition: $transition;
+				cursor: pointer;
+
+				&:hover {
+					color: darken($textMuted, 20%);
+				}
+
+				&:active {
+					color: darken($textMuted, 60%);
+				}
+			}
+		}
+
+		.header {
+			color: $textPrimary;
+			font-size: 25px;
+			font-weight: 800;
+			text-transform: uppercase;
+			padding: 0 20px;
+		}
+		.body {
+			padding: 0;
+			margin: 0;
+			margin-top: 25px;
+		}
+		.footer {
+			margin-top: 25px;
+		}
+	}
+}
+
+@keyframes showBackground {
+	to {
+		background-color: rgba(0, 0, 0, 0.6);
+	}
+}
+
+@keyframes showContent {
+	from {
+		opacity: 0;
+		transform: translateY(-150px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes hideContent {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(-150px);
+	}
+}
