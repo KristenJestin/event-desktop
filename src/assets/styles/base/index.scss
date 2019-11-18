@@ -1,0 +1,133 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700&display=swap");
+
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu';
+	background-color: $backgroundPrimary;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-track {
+	background: #ddd;
+}
+*::-webkit-scrollbar-thumb {
+	background: #666;
+}
+
+#root {
+	height: 100%;
+}
+
+*{
+	user-select: none;
+}
+
+
+
+.bg-success {
+    background-color: $success-color;
+}
+.bg-warning {
+    background-color: $warning-color;
+}
+.bg-danger {
+    background-color: $danger-color;
+}
+.bg-info {
+    background-color: $info-color;
+}
+
+
+
+button {
+	outline: none;
+	background: $primary;
+	width: 100%;
+	border: 0;
+	border-radius: 4px;
+	padding: 12px 20px;
+	color: $textSecondary;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: 500;
+	line-height: inherit;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: $transition;
+
+	&:hover {
+		background-color: lighten($primaryDark, 6%);
+	}
+
+	&:active {
+		background-color: darken($primaryDark, 3%);
+	}
+
+
+	&.bg-success {
+		&:hover {
+			background-color: lighten($success-color, 6%);
+		}
+		&:active {
+			background-color: darken($success-color, 3%);
+		}
+	}	
+
+	&.bg-warning {
+		&:hover {
+			background-color: lighten($warning-color, 6%);
+		}
+		&:active {
+			background-color: darken($warning-color, 3%);
+		}
+	}
+
+	&.bg-danger {
+		&:hover {
+			background-color: lighten($danger-color, 6%);
+		}
+		&:active {
+			background-color: darken($danger-color, 3%);
+		}
+	}
+
+	&.bg-info {
+		&:hover {
+			background-color: lighten($info-color, 6%);
+		}
+		&:active {
+			background-color: darken($info-color, 3%);
+		}
+	}
+
+	
+	&.only-text {
+		background-color: transparent;
+		color: lighten($textPrimary, 35%);
+		width: auto;
+
+		&:hover {
+			color: lighten($textPrimary, 20%);
+		}
+		&:active {
+			color: $textPrimary;
+		}
+	}
+}
+
+
+.noTransition {
+	transition: none !important;
+}

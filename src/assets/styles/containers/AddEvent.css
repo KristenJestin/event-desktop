@@ -1,0 +1,28 @@
+.AddEvent {
+	text-align: center;
+}
+
+.AddEvent-logo {
+	animation: App-logo-spin infinite 20s linear;
+	height: 80px;
+}
+
+.AddEvent-header {
+	background-color: orange;
+	height: 150px;
+	padding: 20px;
+	color: white;
+}
+
+.AddEvent-intro {
+	font-size: large;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
