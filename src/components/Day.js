@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../assets/styles/components/Day.scss'
+import colors from '../config/Colors'
 
 class Day extends Component {
 	render() {
@@ -24,9 +25,17 @@ class Day extends Component {
 				<span className="number">{date.format('DD')}</span>
 				<div className="events">
 					{events.map((event, index) => (
-						<p key={index} style={{ color: event.color }}>
-							{event.name}
-						</p>
+						<div
+							key={index}
+							className="event"
+							style={{
+								backgroundColor: event.color || colors.primary
+							}}>
+							{/* <div
+								className="pastille"
+								style={{ backgroundColor: event.color }}></div>
+							<span className="text">{event.name}</span> */}
+						</div>
 					))}
 				</div>
 			</div>

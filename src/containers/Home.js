@@ -26,13 +26,15 @@ class Home extends Component {
 
 	updateEvents = date => {
 		// Get all events from this month
-		this.monthEvents = this.props.events.filter(event => {
-			let start = moment(event.start)
-			return (
-				start.isSameOrAfter(getFirstMondayOfWeekAndMonth(date)) &&
-				start.isSameOrBefore(getLastSundayOfWeekAndMonth(date))
-			)
-		})
+		this.monthEvents = this.props.events
+			.filter(event => {
+				let start = moment(event.start)
+				return (
+					start.isSameOrAfter(getFirstMondayOfWeekAndMonth(date)) &&
+					start.isSameOrBefore(getLastSundayOfWeekAndMonth(date))
+				)
+			})
+			.sort((a, b) => moment(a.start).unix() - moment(b.start).unix())
 		// Get all events from selected Date
 		this.selectedDateEvents = this.monthEvents.filter(event =>
 			moment(event.start).isSame(date, 'day')

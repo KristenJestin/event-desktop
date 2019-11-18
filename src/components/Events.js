@@ -92,11 +92,7 @@ class Events extends Component {
 				<div className="body">
 					{events.length > 0 ? (
 						events
-							.sort(
-								(a, b) =>
-									moment(a.start).unix() -
-									moment(b.start).unix()
-							)
+							.slice(0, 5)
 							.map((event, index) => (
 								<Event key={index} event={event} />
 							))
