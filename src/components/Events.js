@@ -8,6 +8,7 @@ import moment from '../config/LocaleMoment'
 import Event from './Event'
 import Modal from './display/Modal'
 import Form from './display/Form'
+import { AddToast } from './display/Notification'
 
 class Events extends Component {
 	addEvent = event => {
@@ -23,6 +24,7 @@ class Events extends Component {
 		const action = { type: 'ADD_EVENT', value: newEvent }
 		this.props.dispatch(action)
 		this.eventModal.hide()
+		AddToast({ message: 'Événement ajouté !' })
 	}
 
 	renderModal() {

@@ -22,11 +22,11 @@ ReactDOM.render(
 			<ReactNotifications />
 			<Router>
 				<Switch>
-					<Route path="/add-event">
-						<AddEvent />
-					</Route>
 					<Route path="/">
 						<Home />
+					</Route>
+					<Route path="/add-event">
+						<AddEvent />
 					</Route>
 				</Switch>
 			</Router>
