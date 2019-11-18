@@ -1,0 +1,12 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.Notification {
+    color: white;
+    display: flex;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}

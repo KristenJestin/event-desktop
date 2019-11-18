@@ -12,9 +12,14 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/es/integration/react'
 import Store, { persistor } from './store/configure'
 
+import ReactNotifications from 'react-notifications-component'
+
+// const { app } = window.require('electron').remote
+
 ReactDOM.render(
 	<Provider store={Store}>
 		<PersistGate loading={<Loader />} persistor={persistor}>
+			<ReactNotifications />
 			<Router>
 				<Switch>
 					<Route path="/add-event">

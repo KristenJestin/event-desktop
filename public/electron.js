@@ -18,6 +18,7 @@ function createWindow() {
 		height: 680,
 		minWidth: 550,
 		minHeight: 400,
+		icon: __dirname + 'favicon.ico',
 		webPreferences: { nodeIntegration: true }
 	})
 	mainWindow.loadURL(
