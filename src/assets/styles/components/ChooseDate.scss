@@ -1,0 +1,63 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.ChooseDate {
+    background-color: $backgroundTertiary;
+	height: 150px;
+    padding: 0 20px;
+    overflow: hidden;
+	@include flexbox();
+	@include flex-direction(row);
+	@include justify-content(space-between);
+	@include align-items(center);
+
+	.multiple {
+		@include flexbox();
+		@include flex-direction(column);
+		@include justify-content(center);
+        @include align-items(flex-start);
+        
+        text-transform: uppercase;
+        color: $textMuted;
+        font-weight: 800;
+        letter-spacing: 5px;
+        
+        span {
+            transition: $transition;
+            
+            &:hover:not(.current):not(.hide) {
+                cursor: pointer;
+                color: darken($textMuted, 15%);
+            }
+        }
+    }
+    
+    
+	.months {
+        font-size: 25px;
+        
+        .current {
+            font-size: 35px;
+        }
+	}
+    
+	.years {
+        @include align-items(flex-end);
+        font-size: 16px;
+        
+        .current {
+            font-size: 25px;
+        }
+    }
+    
+    
+    .current {
+        color: $textPrimary;
+    }
+
+    .hide {
+        opacity: 0;
+        font-size: 0;
+    }
+}

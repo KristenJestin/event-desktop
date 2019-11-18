@@ -1,0 +1,19 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.DayNames {
+    @include flexbox();
+    @include flex-direction(row);
+    @include justify-content(space-around);
+    background-color: $primary;
+    text-align: center;
+    
+    .name {
+        padding: 6px 0; 
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $textSecondary;
+        flex: 1;
+    }
+}

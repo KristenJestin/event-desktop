@@ -1,0 +1,18 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.Week {
+    @include flex(1);
+
+    @include flexbox();
+    @include flex-direction(row);
+    @include justify-content(space-around);
+    padding: 0;
+    margin: 0;
+    border-top: $calendarBorder;
+
+    &:first-child {
+        border-top: none;
+    }
+}

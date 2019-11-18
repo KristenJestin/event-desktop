@@ -1,0 +1,19 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+.Calendar {	
+	overflow-y: hidden;
+	@include flex(1);
+	
+	@include flexbox();
+	@include flex-direction(column);
+	
+	.weeks{
+		overflow-y: auto;
+		@include flex(1);
+
+		@include flexbox();
+		@include flex-direction(column);
+	}
+}

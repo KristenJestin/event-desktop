@@ -1,0 +1,147 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import '../abstracts/functions';
+
+$input-bg: rgba(0, 0, 0, 0.08);
+$input-border: 4px;
+
+.form-group {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 0 0 20px;
+
+	&:last-child {
+		margin: 0;
+	}
+
+	label {
+		display: block;
+		margin: 0 0 5px;
+		color: $textMuted;
+		font-size: 15px;
+		font-weight: 800;
+		line-height: 1;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		display: inline-block;
+
+		.notrequired {
+			color: $textMuted;
+			font-size: 11px;
+		}
+	}
+
+	label + .error-icon {
+		color: $danger-color;
+		display: inline-block;
+		margin-left: 2px;
+	}
+
+	input {
+		outline: none;
+		display: block;
+		background: $input-bg;
+		width: 100%;
+		border: 0;
+		border-radius: $input-border;
+		box-sizing: border-box;
+		padding: 12px 20px;
+		color: $textMuted;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		transition: 0.3s ease;
+
+		&:focus {
+			color: $textPrimary;
+		}
+	}
+
+	.colors {
+		@include flexbox;
+		@include flex-direction(row);
+		@include justify-content(space-around);
+		width: 100%;
+
+		.color {
+			$colorSize: 30px;
+			height: $colorSize;
+			width: $colorSize;
+			border-radius: $colorSize;
+			border: 3px solid transparent;
+			cursor: pointer;
+
+			&.selected {
+				border-color: $textPrimary;
+			}
+		}
+	}
+
+	.error {
+		font-size: 13px;
+		color: $danger-color;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-top: 2px;
+	}
+}
+
+$checkbox-transform: translate(-50%, calc(-50% - 1px));
+.form-check {
+	position: relative;
+	/* Hide the default checkbox */
+	input[type='checkbox'] {
+		display: none;
+	}
+
+	label {
+		cursor: pointer;
+		margin: 0;
+	}
+	.checkmark {
+		color: $textSecondary;
+		margin-bottom: 2px;
+		position: absolute;
+		top: 50%;
+		left: 10px;
+		transform: $checkbox-transform scale(0);
+		font-size: 10px;
+		pointer-events: none;
+		transition: $transition;
+	}
+
+	label:before {
+		content: '';
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin-right: 8px;
+		margin-bottom: 2px;
+		vertical-align: middle;
+		text-align: center;
+		background: $input-bg;
+		border-radius: $input-border;
+		transition: $transition;
+	}
+	label:hover::before {
+		background: rgba($input-bg, 0.15);
+	}
+
+	/* On check */
+	input:checked ~ label:before {
+		content: '';
+		background: $primary;
+		color: $textPrimary;
+	}
+	input:checked ~ .checkmark {
+		transform: $checkbox-transform scale(1);
+	}
+}
+
+.form-buttons {
+	@include flexbox;
+	@include flex-direction(row);
+	@include justify-content(stretch);
+}
